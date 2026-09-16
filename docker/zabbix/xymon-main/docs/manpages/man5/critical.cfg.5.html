@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="../mandoc.css" type="text/css" media="all"/>
+  <title>CRITICAL.CFG(5)</title>
+</head>
+<body>
+<h1 class="head-name">CRITICAL.CFG</h1>
+Section: File Formats (5)<br/>Updated: Version 4.3.30: 4 Sep 2019<br/><a href="#INDEX">Index</a>
+<a href="../index.html">Return to Main Contents</a><hr/>
+
+<div class="manual-text">
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp">critical.cfg - Configuration of the showgraph CGI</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><b>$XYMONHOME/etc/critical.cfg</b></p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><i>critical.cgi(1)</i> uses the configuration file
+    $XYMONHOME/etc/critical.cfg to determine which of the statuses currently in
+    a red or yellow state should appear on the Critical Systems view.</p>
+<p class="Pp">This file should not be edited manually. It is maintained by the
+    <i><a href="../man1/criticaleditor.cgi.1.html">criticaleditor.cgi</a>(1)</i> utility via a web-based frontend.</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="FILE_PERMISSIONS"><a class="permalink" href="#FILE_PERMISSIONS">FILE
+  PERMISSIONS</a></h1>
+<p class="Pp">Since the file is maintained by a web front-end tool, the userid
+    running Web CGI scripts must have write-permission to the file. Typically,
+    this means it must have a group-ownership matching your webserver userid,
+    and group-write permissions (mode 664).</p>
+<p class="Pp">When editing the file with the web front-end, a backup file is
+    created. Therefore the critical.cfg.bak file should have identical
+    permissions.</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a href="../man1/criticalview.cgi.1.html">criticalview.cgi</a>(1), <a href="../man1/criticaleditor.cgi.1.html">criticaleditor.cgi</a>(1)</p>
+<p class="Pp"></p>
+</section>
+<p>&#160;</p>
+<h1 class="Sh" id="INDEX"><a class="permalink" href="#INDEX">Index</a></h1>
+<dl class="Bl-tag">
+<dt><a href="#NAME">NAME</a></dt>
+<dt><a href="#SYNOPSIS">SYNOPSIS</a></dt>
+<dt><a href="#DESCRIPTION">DESCRIPTION</a></dt>
+<dt><a href="#FILE_PERMISSIONS">FILE PERMISSIONS</a></dt>
+<dt><a href="#SEE_ALSO">SEE ALSO</a></dt>
+</dl>
+</div>
+<hr/>
+This document was created by mandoc, using the manual pages.
+
+</body>
+</html>

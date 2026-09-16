@@ -1,0 +1,64 @@
+---
+# For configuration options and examples, please see:
+# https://gethomepage.dev/configs/services/
+
+- Services:
+    - FileBrowser:
+        icon: filebrowser.png
+        href: http://localhost:8080
+        description: Web File Manager
+
+    - Gitea:
+        icon: gitea
+        href: http://localhost:3002
+        description: Self-hosted Git
+
+    - MkDocs:
+        icon: mkdocs
+        href: http://localhost:8000
+        description: Documentation
+
+    - Wiki.js Demo:
+        icon: sh-wiki
+        href: http://localhost:8086
+        description: Wiki.js demo
+
+    - AlmaISO Factory:
+        icon: sh-almalinux
+        href: http://localhost:8081
+        description: Build custom AlmaLinux ISOs
+
+    - Secure Files:
+        icon: mdi-key
+        href: http://localhost:8082
+        description: Password-protected file server
+
+    - Satellite Service Portal:
+        icon: mdi-satellite
+        href: http://localhost:8085
+        description: Satellite Service Portal
+
+    - Satellite Stateboard:
+        icon: mdi-satellite-variant
+        href: http://localhost:8084
+        description: Satellite Operations Dashboard
+
+    - RAG Demo:
+        icon: mdi-robot
+        href: http://localhost:8083
+        description: Retrieval-Augmented Generation
+
+    - Xymon Status Board:
+        icon: mdi-chart-line
+        href: http://localhost:8088
+        description: System Monitoring Dashboard
+
+    - Zabbix:
+        icon: sh-shieldcheck
+        href: http://localhost:8087
+        description: Infrastructure monitoring
+
+    - ECN Office:
+        icon: si-microsoftoutlook
+        href: https://www.google.com/url?sa=t&source=web&rct=j&opi=89978449&url=CAESewHrOzAVqRuaVLU6t-Q1hSgG74RAWpiWIWQTs1ntJ83St0t6boku2POy36WlQ_uEaIAmnRXADFpIYb_dY30B-I4BBxIlWGRPv8tgjjF-Fd0giNd4_y9wjgEMGlJQeQX2sbzEJNATGXfHbb57AMZKue_mC2q0Nn351Fdvkg&ved=2ahUKEwiz7-qYyNKWAxV9kYkEHZd-F9IQFnoECCgQAQ&uoh=2&usg=AOvVaw0vGMz0E3md6aD0fLLKoh-B
+        description: ECN SharePoint

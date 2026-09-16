@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="../mandoc.css" type="text/css" media="all"/>
+  <title>XYMONGREP(1)</title>
+</head>
+<body>
+<h1 class="head-name">XYMONGREP</h1>
+Section: User Commands (1)<br/>Updated: Version 4.3.30: 4 Sep 2019<br/><a href="#INDEX">Index</a>
+<a href="../index.html">Return to Main Contents</a><hr/>
+
+<div class="manual-text">
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp">xymongrep - pick out lines in hosts.cfg</p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><b>xymongrep --help</b>
+  <br/>
+  <b>xymongrep --version</b>
+  <br/>
+  <b>xymongrep [--noextras] [--test-untagged] [--no-dialup] [--web] [--net]
+    [--loadhostsfromxymond] TAG [TAG...]</b></p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><i><a href="../man1/xymongrep.1.html">xymongrep</a>(1)</i> is for use by extension scripts that need to
+    pick out the entries in a hosts.cfg file that are relevant to the
+  script.</p>
+<p class="Pp">The utility accepts test names as parameters, and will then parse
+    the hosts.cfg file and print out the host entries that have at least one of
+    the wanted tests specified. Tags may be given with a trailing asterisk '*',
+    e.g. &quot;xymongrep http*&quot; is needed to find all http and https
+  tags.</p>
+<p class="Pp">The xymongrep utility supports the use of &quot;include&quot;
+    directives inside the hosts.cfg file, and will find matching tags in all
+    included files.</p>
+<p class="Pp">If the DOWNTIME or SLA tags are used in the <i><a href="../man5/hosts.cfg.5.html">hosts.cfg</a>(5)</i>
+    file, these are interpreted relative to the current time. xymongrep then
+    outputs a &quot;INSIDESLA&quot; or &quot;OUTSIDESLA&quot; tag for easier use
+    by scripts that want to check if the current time is inside or outside the
+    expected uptime window.</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt id="noextras"><a class="permalink" href="#noextras"><b>--noextras</b></a></dt>
+  <dd>Remove the &quot;testip&quot;, &quot;dialup&quot;, &quot;INSIDESLA&quot;
+      and &quot;OUTSIDESLA&quot; tags from the output.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="test-untagged"><a class="permalink" href="#test-untagged"><b>--test-untagged</b></a></dt>
+  <dd>When using the XYMONNETWORK environment variable to test only hosts on a
+      particular network segment, xymonnet will ignore hosts that do not have
+      any &quot;NET:x&quot; tag. So only hosts that have a NET:$XYMONNETWORK tag
+      will be tested.
+    <br/>
+    With this option, hosts with no NET: tag are included in the test, so that
+      all hosts that either have a matching NET: tag, or no NET: tag at all are
+      tested.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="no-down"><a class="permalink" href="#no-down"><b>--no-down</b>[=<i>TESTNAME</i>]</a></dt>
+  <dd>xymongrep will query the Xymon server for the current status of the
+      &quot;conn&quot; test, and if TESTNAME is specified also for the current
+      state of the specified test. If the status of the &quot;conn&quot; test
+      for a host is non-green, or the status of the TESTNAME test is disabled,
+      then this host is ignored and will not be included in the output. This can
+      be used to ignore hosts that are down, or hosts where the custom test is
+      disabled.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="no-dialup"><a class="permalink" href="#no-dialup"><b>--no-dialup</b></a></dt>
+  <dd>Skip hosts that have the &quot;dialup&quot; attribute set in the
+      <i><a href="../man5/hosts.cfg.5.html">hosts.cfg</a>(5)</i> file. Unlike <b>--no-down</b>, this check does not
+      query the server; it filters strictly on the host attribute and is
+      independent of the host's current color. Useful for scripts that should
+      never probe hosts expected to be intermittently offline.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="web"><a class="permalink" href="#web"><b>--web</b></a></dt>
+  <dd>Search the hosts.cfg file following include statements as a Xymon
+      web-server would.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="net"><a class="permalink" href="#net"><b>--net</b></a></dt>
+  <dd>Search the hosts.cfg file following include statements as when running
+      xymonnet.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="loadhostsfromxymond"><a class="permalink" href="#loadhostsfromxymond"><b>--loadhostsfromxymond</b></a></dt>
+  <dd>xymongrep will normally attempt to load the HOSTSCFG file by itself when
+      searching for lines to transmit. If the file is unreadable, it will exit
+      out. With this option, it will query the xymond server (set via the
+      XYMONSERVER environment) for the hosts file. This can be used if you're
+      running this on a client or remote system and can't or don't want to have
+      the hosts.cfg file synchronized across your servers.
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="EXAMPLE"><a class="permalink" href="#EXAMPLE">EXAMPLE</a></h1>
+<p class="Pp">If your hosts.cfg file looks like this</p>
+<p class="Pp">
+  <br/>
+   192.168.1.1 www.test.com # ftp telnet !oracle
+  <br/>
+   192.168.1.2 db1.test.com # oracle
+  <br/>
+   192.168.1.3 mail.test.com # smtp</p>
+<p class="Pp">and you have a custom Xymon extension script that performs the
+    &quot;oracle&quot; test, then running &quot;xymongrep oracle&quot; would
+    yield</p>
+<p class="Pp">
+  <br/>
+   192.168.1.1 www.test.com # !oracle
+  <br/>
+   192.168.1.2 db1.test.com # oracle</p>
+<p class="Pp">so the script can quickly find the hosts that are of interest.</p>
+<p class="Pp">Note that the reverse-test modifier - &quot;!oracle&quot; - is
+    included in the output; this also applies to the other test modifiers
+    defined by Xymon (the dial-up and always-true modifiers).</p>
+<p class="Pp">If your extension scripts use more than one tag, just list all of
+    the interesting tags on the command line.</p>
+<p class="Pp">xymongrep also supports the &quot;NET:location&quot; tag used by
+    xymonnet, so if your script performs network checks then it will see only
+    the hosts that are relevant for the test location that the script currently
+    executes on.</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="USE_IN_EXTENSION_SCRIPTS"><a class="permalink" href="#USE_IN_EXTENSION_SCRIPTS">USE
+  IN EXTENSION SCRIPTS</a></h1>
+<p class="Pp">To integrate xymongrep into an existing script, look for the line
+    in the script that grep's in the $HOSTSCFG file. Typically it will look
+    somewhat like this:</p>
+<p class="Pp">
+  <br/>
+   $GREP -i &quot;^[0-9].*#.*TESTNAME&quot; $HOSTSCFG | ... code to handle
+  test</p>
+<p class="Pp">Instead of the grep, we will use xymongrep. It then becomes</p>
+<p class="Pp">
+  <br/>
+   $XYMONHOME/bin/xymongrep TESTNAME | ... code to handle test</p>
+<p class="Pp">which is simpler, less error-prone and more efficient.</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="ENVIRONMENT_VARIABLES"><a class="permalink" href="#ENVIRONMENT_VARIABLES">ENVIRONMENT
+  VARIABLES</a></h1>
+<dl class="Bl-tag">
+  <dt id="XYMONNETWORK"><a class="permalink" href="#XYMONNETWORK"><b>XYMONNETWORK</b></a></dt>
+  <dd>If set, xymongrep outputs only lines from hosts.cfg that have a matching
+      NET:$XYMONNETWORK setting.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="HOSTSCFG"><a class="permalink" href="#HOSTSCFG"><b>HOSTSCFG</b></a></dt>
+  <dd>Filename for the Xymon <i><a href="../man5/hosts.cfg.5.html">hosts.cfg</a>(5)</i> file.
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="FILES"><a class="permalink" href="#FILES">FILES</a></h1>
+<dl class="Bl-tag">
+  <dt><b>$HOSTSCFG</b></dt>
+  <dd>The Xymon hosts.cfg file
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a href="../man5/hosts.cfg.5.html">hosts.cfg</a>(5), <a href="../man5/xymonserver.cfg.5.html">xymonserver.cfg</a>(5)</p>
+</section>
+<p>&#160;</p>
+<h1 class="Sh" id="INDEX"><a class="permalink" href="#INDEX">Index</a></h1>
+<dl class="Bl-tag">
+<dt><a href="#NAME">NAME</a></dt>
+<dt><a href="#SYNOPSIS">SYNOPSIS</a></dt>
+<dt><a href="#DESCRIPTION">DESCRIPTION</a></dt>
+<dt><a href="#OPTIONS">OPTIONS</a></dt>
+<dt><a href="#EXAMPLE">EXAMPLE</a></dt>
+<dt><a href="#USE_IN_EXTENSION_SCRIPTS">USE IN EXTENSION SCRIPTS</a></dt>
+<dt><a href="#ENVIRONMENT_VARIABLES">ENVIRONMENT VARIABLES</a></dt>
+<dt><a href="#FILES">FILES</a></dt>
+<dt><a href="#SEE_ALSO">SEE ALSO</a></dt>
+</dl>
+</div>
+<hr/>
+This document was created by mandoc, using the manual pages.
+
+</body>
+</html>

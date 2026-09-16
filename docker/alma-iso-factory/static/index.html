@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AlmaLinux ISO Factory</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen py-10 px-4 flex justify-center">
+  <div class="max-w-2xl w-full space-y-6">
+    
+    <!-- Compiler Form Card -->
+    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl">
+      <h1 class="text-2xl font-bold text-emerald-400">AlmaLinux ISO Factory</h1>
+      <p class="text-slate-400 text-sm mt-1">Configure parameters and compile a zero-touch unattended ISO.</p>
+
+      <form id="isoForm" class="space-y-4 mt-6">
+        <div>
+          <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Custom ISO Name (Optional)</label>
+          <div class="flex items-center">
+            <input type="text" name="iso_name" id="iso_name" placeholder="AlmaLinux-9-Workstation" class="w-full bg-slate-950 border border-slate-700 rounded-l px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none">
+            <span class="bg-slate-900 border border-l-0 border-slate-700 px-3 py-2 text-sm text-slate-500 rounded-r">.iso</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Username</label>
+            <input type="text" name="username" value="almauser" required class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">User Password</label>
+            <input type="text" name="user_password" value="AlmaLinux123!" required class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Root Password</label>
+            <input type="text" name="root_password" value="AlmaLinux123!" required class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Timezone</label>
+            <input type="text" name="timezone" value="America/Halifax" required class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Environment</label>
+            <select name="environment" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none">
+              <option value="graphical" selected>Server with GUI (GNOME)</option>
+              <option value="minimal">Minimal (Headless)</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Keyboard Layout</label>
+            <select name="keyboard" class="w-full bg-slate-950 border border-slate-700 rounded px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none">
+              <option value="us" selected>US English</option>
+              <option value="uk">UK English</option>
+              <option value="ca">Canadian</option>
+            </select>
+          </div>
+        </div>
+
+        <button id="submitBtn" type="submit" class="w-full bg-emerald-600 hover:bg-emerald-500 font-semibold py-2.5 rounded-lg transition duration-200 shadow-lg text-sm">
+          Compile Custom ISO
+        </button>
+      </form>
+
+      <!-- Live Dynamic Progress Bar -->
+      <div id="loading" class="hidden mt-6 space-y-3 bg-slate-950 p-4 rounded-lg border border-slate-700/80">
+        <div class="flex justify-between items-center text-xs">
+          <span id="stageLabel" class="text-slate-300 font-medium truncate pr-2">Initializing compilation workspace...</span>
+          <span id="percentLabel" class="text-emerald-400 font-mono font-semibold">0%</span>
+        </div>
+        <div class="w-full bg-slate-800 rounded-full h-2.5 overflow-hidden">
+          <div id="progressBar" class="bg-emerald-500 h-full transition-all duration-300 ease-out" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <!-- Success Notification Banner -->
+      <div id="successNotice" class="hidden mt-6 bg-slate-950 border border-emerald-500/40 rounded-lg p-4 flex items-center justify-between">
+        <div class="flex items-center space-x-2 text-emerald-400 text-sm font-semibold">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+          <span id="successMsg">ISO build complete and saved to output folder!</span>
+        </div>
+        <button onclick="dismissNotice()" class="text-xs text-slate-400 hover:text-slate-200">Dismiss</button>
+      </div>
+    </div>
+
+    <!-- ISO Explorer Panel -->
+    <div class="bg-slate-800 border border-slate-700 rounded-xl p-6 shadow-xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+        <div>
+          <h2 class="text-base font-bold text-slate-200">Generated ISO Files</h2>
+          <p class="text-xs text-slate-400" id="diskUsage">Loading storage stats...</p>
+        </div>
+        <button onclick="loadFiles()" class="text-xs bg-slate-700 hover:bg-slate-600 px-3 py-1.5 rounded text-slate-300 transition">
+          Refresh List
+        </button>
+      </div>
+
+      <div id="fileList" class="space-y-3">
+        <p class="text-xs text-slate-500 italic">No ISOs found in output folder.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const form = document.getElementById('isoForm');
+    const loading = document.getElementById('loading');
+    const submitBtn = document.getElementById('submitBtn');
+    const successNotice = document.getElementById('successNotice');
+    const formInputs = form.querySelectorAll('input, select');
+    const progressBar = document.getElementById('progressBar');
+    const stageLabel = document.getElementById('stageLabel');
+    const percentLabel = document.getElementById('percentLabel');
+    let pollInterval = null;
+
+    function setFormState(busy) {
+      formInputs.forEach(el => {
+        el.disabled = busy;
+        if (busy) {
+          el.classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+          el.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+      });
+      submitBtn.disabled = busy;
+      if (busy) {
+        submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
+        loading.classList.remove('hidden');
+      } else {
+        submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+        loading.classList.add('hidden');
+      }
+    }
+
+    function dismissNotice() {
+      successNotice.classList.add('hidden');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      dismissNotice();
+      
+      progressBar.style.width = '0%';
+      percentLabel.textContent = '0%';
+      stageLabel.textContent = 'Starting build job...';
+
+      const formData = new FormData(form);
+      setFormState(true);
+
+      try {
+        const response = await fetch('/build', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (!response.ok) throw new Error('Could not initiate build job on server.');
+        const { job_id } = await response.json();
+
+        // Poll for progress updates
+        pollInterval = setInterval(async () => {
+          try {
+            const pollRes = await fetch(`/job/${job_id}`);
+            const job = await pollRes.json();
+
+            progressBar.style.width = `${job.progress}%`;
+            percentLabel.textContent = `${job.progress}%`;
+            stageLabel.textContent = job.stage;
+
+            if (job.status === 'completed') {
+              clearInterval(pollInterval);
+              setFormState(false);
+
+              // Inform user without triggering automatic browser download
+              document.getElementById('successMsg').textContent = `${job.filename} ready in output folder!`;
+              successNotice.classList.remove('hidden');
+              await loadFiles();
+
+            } else if (job.status === 'failed') {
+              clearInterval(pollInterval);
+              setFormState(false);
+              alert(`Build failed: ${job.error}`);
+            }
+          } catch (pollErr) {
+            console.error('Polling error:', pollErr);
+          }
+        }, 1500);
+
+      } catch (err) {
+        setFormState(false);
+        alert(err.message || 'Error compiling ISO.');
+      }
+    });
+
+    async function loadFiles() {
+      try {
+        const res = await fetch('/list-isos');
+        const data = await res.json();
+        
+        document.getElementById('diskUsage').textContent = 
+          `Output Usage: ${data.total_usage_gb} | Host Free Space: ${data.free_space_gb}`;
+
+        const listEl = document.getElementById('fileList');
+        if (!data.files || data.files.length === 0) {
+          listEl.innerHTML = '<p class="text-xs text-slate-500 italic">No ISOs generated yet.</p>';
+          return;
+        }
+
+        listEl.innerHTML = data.files.map((f, idx) => {
+          const cfg = f.config || {};
+          const hasConfig = Object.keys(cfg).length > 0;
+          
+          return `
+          <div class="bg-slate-950 border border-slate-700 rounded-lg p-3 space-y-2">
+            <div class="flex items-center justify-between">
+              <div>
+                <div class="font-mono text-sm font-semibold text-slate-200">${f.name}</div>
+                <div class="text-xs text-slate-500">${f.size} • Created: ${f.date}</div>
+              </div>
+              <div class="flex items-center space-x-2">
+                ${hasConfig ? `
+                  <button onclick="toggleConfig(${idx})" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-2.5 py-1.5 rounded text-xs font-medium transition">
+                    View Config
+                  </button>
+                ` : ''}
+                <a href="/download/${f.name}" class="bg-emerald-600/20 text-emerald-400 hover:bg-emerald-600/30 px-3 py-1.5 rounded text-xs font-semibold transition">
+                  Download
+                </a>
+                <button onclick="deleteFile('${f.name}')" class="bg-rose-500/20 text-rose-400 hover:bg-rose-500/30 px-3 py-1.5 rounded text-xs font-semibold transition">
+                  Delete
+                </button>
+              </div>
+            </div>
+
+            ${hasConfig ? `
+              <div id="config-${idx}" class="hidden mt-2 pt-2 border-t border-slate-800 text-xs grid grid-cols-2 gap-2 bg-slate-900/60 p-2.5 rounded">
+                <div><span class="text-slate-500">Username:</span> <span class="font-mono text-slate-300">${cfg.username || '-'}</span></div>
+                <div><span class="text-slate-500">User Pass:</span> <span class="font-mono text-slate-300">${cfg.user_password || '-'}</span></div>
+                <div><span class="text-slate-500">Root Pass:</span> <span class="font-mono text-slate-300">${cfg.root_password || '-'}</span></div>
+                <div><span class="text-slate-500">Timezone:</span> <span class="font-mono text-slate-300">${cfg.timezone || '-'}</span></div>
+                <div><span class="text-slate-500">Environment:</span> <span class="text-slate-300">${cfg.environment || '-'}</span></div>
+                <div><span class="text-slate-500">Keyboard:</span> <span class="text-slate-300">${cfg.keyboard_layout || '-'}</span></div>
+              </div>
+            ` : ''}
+          </div>
+        `}).join('');
+      } catch (e) {
+        console.error('Failed to load file list', e);
+      }
+    }
+
+    function toggleConfig(idx) {
+      const el = document.getElementById(`config-${idx}`);
+      if (el) el.classList.toggle('hidden');
+    }
+
+    async function deleteFile(filename) {
+      if (!confirm(`Permanently delete ${filename} and its metadata?`)) return;
+      try {
+        const res = await fetch(`/delete/${filename}`, { method: 'DELETE' });
+        if (res.ok) loadFiles();
+      } catch (e) {
+        alert('Failed to delete file.');
+      }
+    }
+
+    loadFiles();
+  </script>
+</body>
+</html>

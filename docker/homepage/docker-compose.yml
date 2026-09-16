@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    environment:
+      - PUID=0
+      - PGID=0
+      - HOMEPAGE_ALLOWED_HOSTS=192.168.5.103:3000
+    volumes:
+      - ./config:/app/config
+      - ../filebrowser/filebrowser.png:/app/public/icons/filebrowser.png
+    ports:
+      - "3000:3000"
+    networks:
+      - homelab-net
+    restart: unless-stopped
+
+networks:
+  homelab-net:
+    external: true

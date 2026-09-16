@@ -1,0 +1,228 @@
+.TH XYMON-XMH 5 "Version 4.3.30:  4 Sep 2019" "Xymon"
+.SH NAME
+Xymon-XMH-variables \- Configuration items available online
+
+.SH DESCRIPTION
+The
+.I hosts.cfg(5)
+file is the most important configuration file for all of the
+Xymon programs.  This file contains the full list of
+all the systems monitored by Xymon, including the set
+of tests and other configuration items stored for each host.
+
+Although the file is in text format and can be searched
+using tools like
+.I xymongrep(1)
+it can be difficult to pick out specific fields from the
+configuration due to quoting and other text parsing issues.
+So Xymon allows for querying this information directly
+from the
+.I xymond
+daemon via the "xymondboard" command. So the information
+can be provided together with the current status of
+a host and/or test. This is done by adding a "fields"
+definition to the "xymondboard" command.
+
+.SH XMH items
+Except where specified below, all items return the text of a
+particular setting from the hosts.cfg file, or an empty string
+if the setting has not been set for the host that is queried.
+
+.IP "\fBXMH_ALLPAGEPATHS\fR"
+List of all pages where the host is found, using the filename
+hierarchy page path.
+
+.IP "\fBXMH_BROWSER\fR"
+Value of the "browser" tag.
+
+.IP "\fBXMH_CLASS\fR"
+The host "class" (if reported by a Xymon client), or the
+value of the CLASS tag.
+
+.IP "\fBXMH_CLIENTALIAS\fR"
+Value of the CLIENT tag.
+
+.IP "\fBXMH_COMMENT\fR"
+Value of the COMMENT tag.
+
+.IP "\fBXMH_COMPACT\fR"
+Value of the COMPACT tag.
+
+.IP "\fBXMH_DEPENDS\fR"
+Value of the DEPENDS tag.
+
+.IP "\fBXMH_DESCRIPTION\fR"
+Value of the DESCR tag.
+
+.IP "\fBXMH_DGNAME\fR"
+The text string from the hosts.cfg "group" definition (group, group-only, group-except)
+in which the host is defined.
+
+.IP "\fBXMH_DISPLAYNAME\fR"
+Value of the NAME tag.
+
+.IP "\fBXMH_DOCURL\fR"
+Value of the DOC tag, with any %s conversion already substituted with
+the hostname.
+
+.IP "\fBXMH_DOWNTIME\fR"
+Value of the DOWNTIME tag.
+
+.IP "\fBXMH_PULLDATA\fR"
+Value of the PULLDATA tag (including IP:PORT, if any)
+
+.IP "\fBXMH_FLAG_DIALUP\fR"
+Value of the "dialup" tag.
+
+.IP "\fBXMH_FLAG_HIDEHTTP\fR"
+Value of the HIDEHTTP tag.
+
+.IP "\fBXMH_FLAG_LDAPFAILYELLOW\fR"
+Value of the "ldapyellowfail" tag.
+
+.IP "\fBXMH_FLAG_MULTIHOMED\fR"
+Value of the MULTIHOMED tag.
+
+.IP "\fBXMH_FLAG_NOBB2\fR"
+Value of the "nobb2" tag (deprecated, use NONONGREEN instead).
+
+.IP "\fBXMH_FLAG_NOCLEAR\fR"
+Value of the NOCLEAR tag.
+
+.IP "\fBXMH_FLAG_NOCLIENT\fR"
+Value of the "noclient" tag.
+
+.IP "\fBXMH_FLAG_NOCONN\fR"
+Value of the "noconn" tag.
+
+.IP "\fBXMH_FLAG_NODISP\fR"
+Value of the "nodisp" tag.
+
+.IP "\fBXMH_FLAG_NOINFO\fR"
+Value of the "noinfo" atg.
+
+.IP "\fBXMH_FLAG_NONONGREEN\fR"
+Value of the "nonongreen" tag.
+
+.IP "\fBXMH_FLAG_NOPING\fR"
+Value of the "noping" tag.
+
+.IP "\fBXMH_FLAG_NOSSLCERT\fR"
+Value of the "nosslcert" tag.
+
+.IP "\fBXMH_FLAG_NOTRACE\fR"
+Value of the "notrace" tag.
+
+.IP "\fBXMH_FLAG_NOTRENDS\fR"
+Value of the "notrends" tag.
+
+.IP "\fBXMH_FLAG_PREFER\fR"
+Value of the "prefer" tag.
+
+.IP "\fBXMH_FLAG_TESTIP\fR"
+Value of the "testip" tag.
+
+.IP "\fBXMH_FLAG_TRACE\fR"
+Value of the "trace" tag.
+
+.IP "\fBXMH_GROUPID\fR"
+Number of the group where the host is listed - first group is 0.
+If a host is present on multiple pages, this is the number of the
+group for the first page where the host is found.
+
+.IP "\fBXMH_HOLIDAYS\fR"
+Value of the "holidays" tag.
+
+.IP "\fBXMH_HOSTNAME\fR"
+The name of the host.
+
+.IP "\fBXMH_HTTPHEADERS\fR"
+Value of the "httphdr" tag.
+
+.IP "\fBXMH_IP\fR"
+The IP-address of the host (as specified in hosts.cfg).
+
+.IP "\fBXMH_LDAPLOGIN\fR"
+Value of the "ldaplogin" tag.
+
+.IP "\fBXMH_NET\fR"
+Value of the NET tag.
+
+.IP "\fBXMH_NK\fR"
+Value of the NK tag (deprecated).
+
+.IP "\fBXMH_NKTIME\fR"
+Value of the NKTIME tag (deprecated).
+
+.IP "\fBXMH_NOCOLUMNS\fR"
+Value of the NOCOLUMNS tag.
+
+.IP "\fBXMH_NOPROP\fR"
+Value of the NOPROP tag.
+
+.IP "\fBXMH_NOPROPACK\fR"
+Value of the NOPROPACK tag.
+
+.IP "\fBXMH_NOPROPPURPLE\fR"
+Value of the NOPROPPURPLE tag.
+
+.IP "\fBXMH_NOPROPRED\fR"
+Value of the NOPROPRED tag.
+
+.IP "\fBXMH_NOPROPYELLOW\fR"
+Value of the NOPROPYELLOW tag.
+
+.IP "\fBXMH_NOTAFTER\fR"
+Value of the NOTAFTER tag.
+
+.IP "\fBXMH_NOTBEFORE\fR"
+Value of the NOTBEFORE tag.
+
+.IP "\fBXMH_OS\fR"
+The host operating system (if reported by a Xymon client), or the
+value of the OS tag.
+
+.IP "\fBXMH_PAGEINDEX\fR"
+Index of the host on the page where it is shown, first host has
+index 0.
+
+.IP "\fBXMH_PAGENAME\fR"
+Name of the page where the host is shown (see also XMH_PAGEPATH).
+
+.IP "\fBXMH_PAGEPATH\fR"
+File path to the page where the host is shown.
+
+.IP "\fBXMH_PAGEPATHTITLE\fR"
+Title of the full path to the page where the host is shown.
+
+.IP "\fBXMH_PAGETITLE\fR"
+Title of the page where the host is shown.
+
+.IP "\fBXMH_RAW\fR"
+All configuration settings for the host. Settings are separated by a pipe-sign.
+
+.IP "\fBXMH_REPORTTIME\fR"
+Value of the REPORTTIME tag.
+
+.IP "\fBXMH_SSLDAYS\fR"
+Value of the "ssldays" tag.
+
+.IP "\fBXMH_SSLMINBITS\fR"
+Value of the "sslbits" tag.
+
+.IP "\fBXMH_TRENDS\fR"
+Value of the TRENDS tag.
+
+.IP "\fBXMH_WARNPCT\fR"
+Value of the WARNPCT tag.
+
+.IP "\fBXMH_WARNSTOPS\fR"
+Value of the WARNSTOPS tag.
+
+.IP "\fBXMH_WML\fR"
+Value of the WML tag.
+
+
+.SH "SEE ALSO"
+xymon(1), hosts.cfg(5), xymongrep(1)
+

@@ -1,0 +1,24 @@
+services:
+  zabbix-viewer:
+    build: .
+    container_name: zabbix-viewer
+    environment:
+      - ZABBIX_URL=http://zabbix-web:8080
+      - PORT=8088
+    volumes:
+      - ../zabbix/.zbx_token:/app/.zbx_token:ro
+    ports:
+      - "8088:8088"
+    labels:
+      - "homepage.group=Monitoring"
+      - "homepage.name=Zabbix Viewer"
+      - "homepage.icon=sh-shieldcheck"
+      - "homepage.href=http://localhost:8088"
+      - "homepage.description=Zabbix dashboard"
+    networks:
+      - homelab-net
+    restart: unless-stopped
+
+networks:
+  homelab-net:
+    external: true

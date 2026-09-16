@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  mkdocs:
+    image: squidfunk/mkdocs-material:latest
+    container_name: mkdocs
+    volumes:
+      - ./mkdocs.yml:/docs/mkdocs.yml
+      - ./docs:/docs/docs
+    ports:
+      - "8000:8000"
+    command: serve --dev-addr=0.0.0.0:8000
+    labels:
+      - "homepage.group=Documentation"
+      - "homepage.name=MkDocs"
+      - "homepage.icon=sh-mkdocs"
+      - "homepage.href=http://localhost:8000"
+      - "homepage.description=Documentation hub"
+    networks:
+      - homelab-net
+    restart: unless-stopped
+
+networks:
+  homelab-net:
+    external: true

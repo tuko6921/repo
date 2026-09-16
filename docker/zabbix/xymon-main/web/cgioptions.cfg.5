@@ -1,0 +1,120 @@
+.TH CGIOPTIONS.CFG 5 "Version 4.3.30:  4 Sep 2019" "Xymon"
+.SH NAME
+cgioptions.cfg \- Command-line parameters for the Xymon CGI tools
+
+.SH SYNOPSIS
+.B $XYMONHOME/etc/cgioptions.cfg
+
+.SH DESCRIPTION
+.I cgioptions.cfg(1)
+controls the command-line options passed to all of the Xymon CGI tools
+through their respective shell-script wrappers. Typically the options
+listed here are used for system-wide configuration of the CGI utilities,
+e.g. to define where they read configuration files.
+
+The exact set of command-line options available are described in the
+man-page for each of the CGI utilities.
+
+The file is "sourced" into the shell script wrapper, so assignments to
+the CGI-specific variables must follow standard shell-script syntax.
+
+.SH SETTINGS
+.IP "\fBCGI_ACKINFO_OPTS\fR"
+Options for the
+.I ackinfo.cgi(1)
+utility.
+
+.IP "\fBCGI_ACK_OPTS\fR"
+Options for the
+.I acknowledge.cgi(1)
+utility.
+
+.IP "\fBCGI_CSVINFO_OPTS\fR"
+Options for the
+.I csvinfo.cgi(1)
+utility.
+
+.IP "\fBCGI_DATEPAGE_OPTS\fR"
+Options for the
+.I datepage.cgi(1)
+utility.
+
+.IP "\fBCGI_ENADIS_OPTS\fR"
+Options for the
+.I enadis.cgi(8)
+utility.
+
+.IP "\fBCGI_EVENTLOG_OPTS\fR"
+Options for the
+.I eventlog.cgi(1)
+utility.
+
+.IP "\fBCGI_FINDHOST_OPTS\fR"
+Options for the
+.I findhost.cgi(1)
+utility.
+
+.IP "\fBCGI_HIST_OPTS\fR"
+Options for the
+.I history.cgi(1)
+utility.
+
+.IP "\fBCGI_COLUMNDOC_OPTS\fR"
+Xymon-specific options for column documentation. This uses the
+.I csvinfo.cgi(1)
+utility with the \fBserver/etc/columndoc.cfg\fR configuration file.
+
+.IP "\fBCGI_CONFREPORT_OPTS\fR"
+Options for the
+.I confreport.cgi(1)
+utility.
+
+.IP "\fBCGI_SHOWGRAPH_OPTS\fR"
+Options for the
+.I showgraph.cgi(1)
+utility.
+
+.IP "\fBCGI_HOSTGRAPHS_OPTS\fR"
+Options for the
+.I hostgraphs.cgi(1)
+utility.
+
+.IP "\fBCGI_CRITEDIT_OPTS\fR"
+Options for the
+.I criticaleditor.cgi(1)
+utility.
+
+.IP "\fBCGI_CRITVIEW_OPTS\fR"
+Options for the
+.I criticalview.cgi(1)
+utility.
+
+.IP "\fBCGI_REPLOG_OPTS\fR"
+Options for the
+.I reportlog.cgi(1)
+utility.
+
+.IP "\fBCGI_REP_OPTS\fR"
+Options for the
+.I report.cgi(1)
+utility.
+
+.IP "\fBCGI_SNAPSHOT_OPTS\fR"
+Options for the
+.I snapshot.cgi(1)
+utility.
+
+.IP "\fBCGI_SVCHIST_OPTS\fR"
+Options for the
+.I svcstatus.cgi(1)
+utility when used to view historical logs. Note that the
+"\-\-historical" option must be included in this setting.
+
+.IP "\fBCGI_SVC_OPTS\fR"
+Options for the
+.I svcstatus.cgi(1)
+utility.
+
+.SH "SEE ALSO"
+xymon(7), the individual CGI utility man-pages.
+

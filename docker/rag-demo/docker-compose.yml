@@ -1,0 +1,19 @@
+services:
+  rag-demo:
+    build: .
+    container_name: rag-demo
+    labels:
+      - "homepage.group=Demo Apps"
+      - "homepage.name=RAG Demo"
+      - "homepage.icon=mdi-robot"
+      - "homepage.href=http://localhost:8083"
+      - "homepage.description=Retrieval-Augmented Generation"
+    ports:
+      - "8083:80"
+    networks:
+      - homelab-net
+    restart: unless-stopped
+
+networks:
+  homelab-net:
+    external: true

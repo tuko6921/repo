@@ -1,0 +1,81 @@
+site_name: Homelab Documentation
+site_description: Self-hosted knowledge base, version control, and documentation guides
+site_url: http://localhost:8000
+
+theme:
+  name: material
+  language: en
+  font:
+    text: Merriweather Sans
+    code: Red Hat Mono
+  logo: assets/folder.svg
+  favicon: assets/folder.svg
+  palette:
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: green
+      accent: deep purple
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: deep orange
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Guides:
+      - Installing Firefox: guides/firefox-install-guide.md
+      - Installing opencode: guides/opencode-install-guide.md
+      - Installing VSCode: guides/vscode-install-guide.md
+      - Hosting Files with HTTP: guides/http-server-guide.md
+      - SCP File Transfer: guides/scp-guide.md
+      - Installing Homepage: guides/homepage-install-guide.md
+      - Homelab Stack Guide: guides/homelab-stack-guide.md
+      - Using Transmission (Torrents): guides/transmission-cli-guide.md
+      - BIS Student Survival Guide: guides/bis-survival-guide.md
+  - Training Courses:
+      - Course Index: courses/courses-index.md
+  - PCAP Toolkit:
+      - 🗂️ Index: pcap-toolkit/index.md
+      - 🕵️ Filter: pcap-toolkit/filter_pcaps.md
+      - 🔀 Merge: pcap-toolkit/merge_pcaps.md
+      - ✂️ Split: pcap-toolkit/split_pcap.md
+      - 🧱 Repack: pcap-toolkit/repack_pcaps.md
+      - 📊 Summarize: pcap-toolkit/summarize_pcap.md
+  - Internal Documentation:
+      - 🛠️ Setup: Internal Documentation/mkdocs_alma_setup.md
+  - Remote SSH & Ping Dashboard:
+      - 📡 Setup Guide: Remote_SSH_And_PingDashboard/Remote_SSH_And_PingDashboard.md
+      - 🏃 Running the App: Remote_SSH_And_PingDashboard/Running_The_App.md
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - pymdownx.emoji
+  - pymdownx.highlight:
+      anchor_linenums: true
+      pygments_lang_class: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+  - pymdownx.details
+  - pymdownx.tabbed:
+      alternate_style: true
+  - toc:
+      permalink: true

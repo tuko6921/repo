@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  gitea:
+    image: gitea/gitea:latest
+    container_name: gitea
+    environment:
+      - USER_UID=1000
+      - USER_GID=1000
+      - GITEA__database__DB_TYPE=sqlite3
+      - GITEA__database__PATH=/data/gitea/gitea.db
+    volumes:
+      - ./data:/data
+      - /etc/timezone:/etc/timezone:ro
+      - /etc/localtime:/etc/localtime:ro
+    ports:
+      - "3002:3000"
+      - "2222:22"
+    labels:
+      - "homepage.group=Version Control"
+      - "homepage.name=Gitea"
+      - "homepage.icon=sh-gitea"
+      - "homepage.href=http://localhost:3002"
+      - "homepage.description=Git hosting & backups"
+    networks:
+      - homelab-net
+    restart: unless-stopped
+
+networks:
+  homelab-net:
+    external: true

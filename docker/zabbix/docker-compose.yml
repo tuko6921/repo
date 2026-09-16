@@ -1,0 +1,72 @@
+services:
+  zdb:
+    image: postgres:16-alpine
+    container_name: zabbix-postgres
+    environment:
+      - POSTGRES_USER=zabbix
+      - POSTGRES_PASSWORD=zabbix
+      - POSTGRES_DB=zabbix
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data
+    networks:
+      - homelab-net
+    restart: unless-stopped
+
+  zabbix-server:
+    image: zabbix/zabbix-server-pgsql:alpine-7.0-latest
+    container_name: zabbix-server
+    depends_on:
+      - zdb
+    environment:
+      - DB_SERVER_HOST=zabbix-postgres
+      - POSTGRES_USER=zabbix
+      - POSTGRES_PASSWORD=zabbix
+      - POSTGRES_DB=zabbix
+    ports:
+      - "10051:10051"
+    networks:
+      - homelab-net
+    restart: unless-stopped
+
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-pgsql:alpine-7.0-latest
+    container_name: zabbix-web
+    depends_on:
+      - zabbix-server
+    environment:
+      - ZBX_SERVER_HOST=zabbix-server
+      - DB_SERVER_HOST=zabbix-postgres
+      - POSTGRES_USER=zabbix
+      - POSTGRES_PASSWORD=zabbix
+      - POSTGRES_DB=zabbix
+      - ZBX_SERVER_NAME="Home Zabbix"
+      - PHP_TZ=UTC
+    ports:
+      - "8087:8080"
+    labels:
+      - "homepage.group=Monitoring"
+      - "homepage.name=Zabbix"
+      - "homepage.icon=sh-shieldcheck"
+      - "homepage.href=http://localhost:8087"
+      - "homepage.description=Infrastructure monitoring"
+    networks:
+      - homelab-net
+    restart: unless-stopped
+
+  zabbix-agent:
+    image: zabbix/zabbix-agent2:alpine-7.0-latest
+    container_name: zabbix-agent
+    depends_on:
+      - zabbix-server
+    environment:
+      - ZBX_SERVER_HOST=zabbix-server
+      - ZBX_HOSTNAME=alma-docker-host
+    ports:
+      - "10050:10050"
+    networks:
+      - homelab-net
+    restart: unless-stopped
+
+networks:
+  homelab-net:
+    external: true

@@ -1,0 +1,19 @@
+services:
+  satellite-service-portal:
+    build: .
+    container_name: satellite-service-portal
+    labels:
+      - "homepage.group=Demo Apps"
+      - "homepage.name=Satellite Service Portal"
+      - "homepage.icon=mdi-satellite"
+      - "homepage.href=http://localhost:8085"
+      - "homepage.description=Satellite Service Portal"
+    ports:
+      - "8085:80"
+    networks:
+      - homelab-net
+    restart: unless-stopped
+
+networks:
+  homelab-net:
+    external: true

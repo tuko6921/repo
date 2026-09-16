@@ -1,0 +1,13 @@
+services:
+  satellite-stateboard:
+    build: .
+    container_name: satellite-stateboard
+    ports:
+      - "8084:8084"
+    networks:
+      - homelab-net
+    restart: unless-stopped
+
+networks:
+  homelab-net:
+    external: true

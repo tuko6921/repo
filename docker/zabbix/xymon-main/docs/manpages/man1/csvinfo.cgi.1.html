@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="../mandoc.css" type="text/css" media="all"/>
+  <title>CSVINFO.CGI(1)</title>
+</head>
+<body>
+<h1 class="head-name">CSVINFO.CGI</h1>
+Section: User Commands (1)<br/>Updated: Version 4.3.30: 4 Sep 2019<br/><a href="#INDEX">Index</a>
+<a href="../index.html">Return to Main Contents</a><hr/>
+
+<div class="manual-text">
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp">csvinfo.cgi - CGI program to show host information from a CSV
+  file</p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><b>csvinfo.cgi</b></p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><b>csvinfo.cgi</b> is invoked as a CGI script via the csvinfo.sh
+    CGI wrapper. Based on the parameters it receives, it searches a comma-
+    separated file for the matching host, and presents the information found as
+    a table.</p>
+<p class="Pp">csvinfo.cgi is passed a QUERY_STRING environment variable with the
+    following parameters:</p>
+<p class="Pp">
+  <br/>
+   key (string to search for, typically hostname)
+  <br/>
+   column (columnnumber to search - default 0)
+  <br/>
+   db (name of the CSV database file in $XYMONHOME/etc/, default hostinfo.csv)
+  <br/>
+   delimiter (delimiter character for columns, default semi-colon)</p>
+<p class="Pp">CSV files are easily created from e.g. spreadsheets, by exporting
+    them in CSV format. You should have one host per line, with the first line
+    containing the column headings. Despite their name, the default delimiter
+    for CSV files is the semi-colon - if you need a different delimiter, invoke
+    csvinfo.cgi with the &quot;delimiter=&lt;character&gt;&quot; in the query
+    string.</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="Example_usage"><a class="permalink" href="#Example_usage">Example
+  usage</a></h1>
+<p class="Pp">This example shows how you can use the csvinfo CGI. It assumes you
+    have a CSV-formatted file with information about the hosts stored as
+    $XYMONHOME/etc/hostinfo.csv, and the hostname is in the first column of the
+    file.</p>
+<p class="Pp"></p>
+<dl class="Bl-tag">
+  <dt id="Use"><a class="permalink" href="#Use">Use with the xymongen
+    --docurl</a></dt>
+  <dd>The --docurl option to <i><a href="../man1/xymongen.1.html">xymongen</a>(1)</i> sets up all of the hostnames on
+      your Xymon webpages to act as links to a CGI script. To invoke the csvinfo
+      CGI script, run xymongen with the option
+    <p class="Pp">
+      <br/>
+       --docurl=/cgi-bin/csvinfo.sh?db=hostinfo.csv&amp;key=%s</p>
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a href="../man5/hosts.cfg.5.html">hosts.cfg</a>(5), <a href="../man5/xymonserver.cfg.5.html">xymonserver.cfg</a>(5), <a href="../man1/xymongen.1.html">xymongen</a>(1)</p>
+<p class="Pp"></p>
+</section>
+<p>&#160;</p>
+<h1 class="Sh" id="INDEX"><a class="permalink" href="#INDEX">Index</a></h1>
+<dl class="Bl-tag">
+<dt><a href="#NAME">NAME</a></dt>
+<dt><a href="#SYNOPSIS">SYNOPSIS</a></dt>
+<dt><a href="#DESCRIPTION">DESCRIPTION</a></dt>
+<dt><a href="#Example_usage">Example usage</a></dt>
+<dt><a href="#SEE_ALSO">SEE ALSO</a></dt>
+</dl>
+</div>
+<hr/>
+This document was created by mandoc, using the manual pages.
+
+</body>
+</html>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="../mandoc.css" type="text/css" media="all"/>
+  <title>XYMOND_DISTRIBUTE(8)</title>
+</head>
+<body>
+<h1 class="head-name">XYMOND_DISTRIBUTE</h1>
+Section: Maintenance Commands (8)<br/>Updated: Version 4.3.30: 4 Sep 2019<br/><a href="#INDEX">Index</a>
+<a href="../index.html">Return to Main Contents</a><hr/>
+
+<div class="manual-text">
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp">xymond_distribute - xymond worker module for distributing
+  commands</p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><b>xymond_channel --channel=enadis xymond_distribute
+  [options]</b></p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp">xymond_distribute is a worker module for xymond, and as such it is
+    normally run via the <i><a href="../man8/xymond_channel.8.html">xymond_channel</a>(8)</i> program. It is used if you
+    have multiple Xymon servers running in a master/slave configuration.
+    xymond_distribute runs on the master server and receives &quot;drop&quot;,
+    &quot;rename&quot;, &quot;enable&quot; and &quot;disable&quot; messages from
+    xymond. xymond_distribute then forwards these to the other Xymon servers as
+    standard xymon messages. So if a user on the master Xymon server disables a
+    red status, xymond_distribute will forward this to the other Xymon servers
+    so that the change happens everywhere.</p>
+<p class="Pp">NOTE: xymond_distribute does not check to see if a message has
+    already been forwarded, so you can easily create forwarding loops.</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt id="peer"><a class="permalink" href="#peer"><b>--peer</b>=<i>HOSTNAME</i></a></dt>
+  <dd>The peer that messages are forwarded to. If you have multiple peers,
+      repeat this option.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="debug"><a class="permalink" href="#debug"><b>--debug</b></a></dt>
+  <dd>Enable debugging output.
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a href="../man8/xymond_channel.8.html">xymond_channel</a>(8), <a href="../man8/xymond.8.html">xymond</a>(8), <a href="../man7/xymon.7.html">xymon</a>(7)</p>
+<p class="Pp"></p>
+</section>
+<p>&#160;</p>
+<h1 class="Sh" id="INDEX"><a class="permalink" href="#INDEX">Index</a></h1>
+<dl class="Bl-tag">
+<dt><a href="#NAME">NAME</a></dt>
+<dt><a href="#SYNOPSIS">SYNOPSIS</a></dt>
+<dt><a href="#DESCRIPTION">DESCRIPTION</a></dt>
+<dt><a href="#OPTIONS">OPTIONS</a></dt>
+<dt><a href="#SEE_ALSO">SEE ALSO</a></dt>
+</dl>
+</div>
+<hr/>
+This document was created by mandoc, using the manual pages.
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+cdrom
+eula --agreed
+firstboot --disable
+
+keyboard --vckeymap={{ keyboard }} --xlayouts='{{ keyboard }}'
+lang {{ language }}
+timezone {{ timezone }} --isUtc
+
+network --bootproto=dhcp --device=link --activate --onboot=yes
+firewall --enabled --service=ssh
+selinux --enforcing
+
+rootpw --plaintext {{ root_password }}
+user --name={{ username }} --plaintext --password={{ user_password }} --groups=wheel
+
+bootloader --location=mbr
+clearpart --all --initlabel
+autopart --type=lvm
+reboot
+
+%packages --default
+{% if environment == 'graphical' %}
+@^graphical-server-environment
+{% else %}
+@^minimal-environment
+{% endif %}
+curl
+vim
+tar
+rsync
+%end
+
+%post --log=/root/ks-post.log
+{% if environment == 'graphical' %}
+systemctl set-default graphical.target
+{% endif %}
+echo "Automated AlmaLinux installed on $(date)" >> /etc/motd
+%end

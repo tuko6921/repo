@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 5%;
+    --foreground: 210 40% 93%;
+
+    --card: 222 30% 8%;
+    --card-foreground: 210 40% 93%;
+
+    --popover: 222 30% 8%;
+    --popover-foreground: 210 40% 93%;
+
+    --primary: 199 89% 48%;
+    --primary-foreground: 222 47% 5%;
+
+    --secondary: 217 19% 15%;
+    --secondary-foreground: 210 40% 85%;
+
+    --muted: 217 19% 12%;
+    --muted-foreground: 215 16% 55%;
+
+    --accent: 263 70% 58%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217 19% 18%;
+    --input: 217 19% 18%;
+    --ring: 199 89% 48%;
+
+    --radius: 0.75rem;
+
+    --glass-bg: 222 30% 10%;
+    --glass-border: 217 19% 22%;
+    --glow-primary: 199 89% 48%;
+    --glow-accent: 263 70% 58%;
+    --surface-elevated: 222 30% 12%;
+    --success: 142 71% 45%;
+    --warning: 38 92% 50%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', sans-serif;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    background: hsl(var(--glass-bg) / 0.6);
+    backdrop-filter: blur(16px);
+    border: 1px solid hsl(var(--glass-border) / 0.4);
+  }
+
+  .glass-panel-strong {
+    background: hsl(var(--glass-bg) / 0.8);
+    backdrop-filter: blur(24px);
+    border: 1px solid hsl(var(--glass-border) / 0.5);
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 40px -8px hsl(var(--glow-primary) / 0.3);
+  }
+
+  .glow-accent {
+    box-shadow: 0 0 40px -8px hsl(var(--glow-accent) / 0.3);
+  }
+
+  .text-gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--accent)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .grid-pattern {
+    background-image:
+      linear-gradient(hsl(var(--border) / 0.3) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--border) / 0.3) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .font-mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}

@@ -1,0 +1,44 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: wiki-postgres
+    environment:
+      - POSTGRES_DB=wiki
+      - POSTGRES_USER=wiki
+      - POSTGRES_PASSWORD=wikijsrocks
+    volumes:
+      - ./pg-data:/var/lib/postgresql/data
+    networks:
+      - homelab-net
+    restart: unless-stopped
+
+  wiki:
+    image: ghcr.io/requarks/wiki:latest
+    container_name: wiki
+    user: "0:0"
+    depends_on:
+      - postgres
+    environment:
+      - DB_TYPE=postgres
+      - DB_HOST=postgres
+      - DB_PORT=5432
+      - DB_USER=wiki
+      - DB_PASS=wikijsrocks
+      - DB_NAME=wiki
+    volumes:
+      - ./wiki-data:/wiki/data
+    ports:
+      - "8086:3000"
+    labels:
+      - "homepage.group=Documentation"
+      - "homepage.name=Wiki.js Demo"
+      - "homepage.icon=sh-bookstack"
+      - "homepage.href=http://localhost:8086"
+      - "homepage.description=Wiki.js demo"
+    networks:
+      - homelab-net
+    restart: unless-stopped
+
+networks:
+  homelab-net:
+    external: true

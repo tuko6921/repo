@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="../mandoc.css" type="text/css" media="all"/>
+  <title>CRITICALVIEW.CGI(1)</title>
+</head>
+<body>
+<h1 class="head-name">CRITICALVIEW.CGI</h1>
+Section: User Commands (1)<br/>Updated: Version 4.3.30: 4 Sep 2019<br/><a href="#INDEX">Index</a>
+<a href="../index.html">Return to Main Contents</a><hr/>
+
+<div class="manual-text">
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="NAME"><a class="permalink" href="#NAME">NAME</a></h1>
+<p class="Pp">criticalview.cgi - Xymon Critical Systems view CGI</p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="SYNOPSIS"><a class="permalink" href="#SYNOPSIS">SYNOPSIS</a></h1>
+<p class="Pp"><b>criticalview.cgi</b></p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="DESCRIPTION"><a class="permalink" href="#DESCRIPTION">DESCRIPTION</a></h1>
+<p class="Pp"><b>criticalview.cgi</b> is invoked as a CGI script via the
+    criticalview.sh CGI wrapper.</p>
+<p class="Pp">criticalview.cgi matches the current critical statuses against the
+    <i><a href="../man5/critical.cfg.5.html">critical.cfg</a>(5)</i> file, and generates the &quot;Critical Systems&quot;
+    view.</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="RELATION_TO_OLD_CRITICAL_PAGE"><a class="permalink" href="#RELATION_TO_OLD_CRITICAL_PAGE">RELATION
+  TO OLD CRITICAL PAGE</a></h1>
+<p class="Pp">This view is a replacement for the statically generated
+    &quot;critical&quot; page provided in versions of Xymon prior to version
+    4.2. Although the &quot;critical&quot; pages are supported throughout Xymon
+    4.x, it is recommended that You switch to the newer Critical Systems view
+    provided by this CGI.</p>
+<p class="Pp"></p>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="OPTIONS"><a class="permalink" href="#OPTIONS">OPTIONS</a></h1>
+<dl class="Bl-tag">
+  <dt id="acklevel"><a class="permalink" href="#acklevel"><b>--acklevel</b>=<i>NUMBER</i></a></dt>
+  <dd>Sets the acknowledgment level for acknowledgments sent via the
+      <i><a href="../man1/ackinfo.cgi.1.html">ackinfo.cgi</a>(1)</i> page. Note that this may be overridden by the
+      configuration of the ackinfo.cgi utility.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="tooltips"><a class="permalink" href="#tooltips"><b>--tooltips</b></a></dt>
+  <dd>Hide the host description in a &quot;tooltip&quot;, i.e. it will be shown
+      when your mouse hovers over the hostname on the webpage. This saves space
+      on the display so there is more room for the status columns.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="hffile"><a class="permalink" href="#hffile"><b>--hffile</b>=<i>PREFIX</i></a></dt>
+  <dd>Define the header/footer files used when building the webpage. The actual
+      files used will be PREFIX_header and PREFIX_footer found in the
+      ~xymon/server/web/ directory. Default: critical.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="env"><a class="permalink" href="#env"><b>--env</b>=<i>FILENAME</i></a></dt>
+  <dd>Loads the environment defined in FILENAME before executing the CGI script.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="area"><a class="permalink" href="#area"><b>--area</b>=<i>NAME</i></a></dt>
+  <dd>Load environment variables for a specific area. NB: if used, this option
+      must appear before any --env=FILENAME option.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="debug"><a class="permalink" href="#debug"><b>--debug</b></a></dt>
+  <dd>Enables debugging output.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="config"><a class="permalink" href="#config"><b>--config</b>=<i>FILENAME</i></a></dt>
+  <dd>Use FILENAME as the configuration file for the Critical Systems
+      information. The default is to load this from $XYMONHOME/etc/critical.cfg
+    <p class="Pp"></p>
+  </dd>
+  <dt id="config~2"><a class="permalink" href="#config~2"><b>--config</b>=<i>ID</i>:<i>FILENAME</i></a></dt>
+  <dd>Allows the use of multiple Critical Systems configuration files on a
+      single webpage. &quot;ID&quot; is a text that will be shown on the web
+      page prior to the critical systems from FILENAME. This option can be
+      repeated to include critical systems from multiple configurations.
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="ENVIRONMENT_VARIABLES"><a class="permalink" href="#ENVIRONMENT_VARIABLES">ENVIRONMENT
+  VARIABLES</a></h1>
+<dl class="Bl-tag">
+  <dt id="XYMONHOME"><a class="permalink" href="#XYMONHOME"><b>XYMONHOME</b></a></dt>
+  <dd>Used to locate the template files for the generated web pages.
+    <p class="Pp"></p>
+  </dd>
+  <dt id="QUERY_STRING"><a class="permalink" href="#QUERY_STRING"><b>QUERY_STRING</b></a></dt>
+  <dd>Contains the parameters for the CGI script.
+    <p class="Pp"></p>
+  </dd>
+</dl>
+</section>
+<section class="Sh">
+<p>&#160;</p>
+<h1 class="Sh" id="SEE_ALSO"><a class="permalink" href="#SEE_ALSO">SEE
+  ALSO</a></h1>
+<p class="Pp"><a href="../man1/ackinfo.cgi.1.html">ackinfo.cgi</a>(1), <a href="../man7/xymon.7.html">xymon</a>(7)</p>
+<p class="Pp"></p>
+</section>
+<p>&#160;</p>
+<h1 class="Sh" id="INDEX"><a class="permalink" href="#INDEX">Index</a></h1>
+<dl class="Bl-tag">
+<dt><a href="#NAME">NAME</a></dt>
+<dt><a href="#SYNOPSIS">SYNOPSIS</a></dt>
+<dt><a href="#DESCRIPTION">DESCRIPTION</a></dt>
+<dt><a href="#RELATION_TO_OLD_CRITICAL_PAGE">RELATION TO OLD CRITICAL PAGE</a></dt>
+<dt><a href="#OPTIONS">OPTIONS</a></dt>
+<dt><a href="#ENVIRONMENT_VARIABLES">ENVIRONMENT VARIABLES</a></dt>
+<dt><a href="#SEE_ALSO">SEE ALSO</a></dt>
+</dl>
+</div>
+<hr/>
+This document was created by mandoc, using the manual pages.
+
+</body>
+</html>

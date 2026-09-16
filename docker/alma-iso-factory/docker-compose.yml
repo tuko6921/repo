@@ -1,0 +1,24 @@
+services:
+  iso-factory:
+    build: .
+    container_name: alma-iso-factory
+    privileged: true
+    ports:
+      - "8081:8080"
+    volumes:
+      - /dev:/dev
+      - ./iso-cache:/iso-cache:ro
+      - ./output:/workspace/output
+    labels:
+      - "homepage.group=ISO Builder"
+      - "homepage.name=ISO Factory"
+      - "homepage.icon=sh-disc"
+      - "homepage.href=http://localhost:8081"
+      - "homepage.description=Unattended AlmaLinux ISO builder"
+    networks:
+      - homelab-net
+    restart: unless-stopped
+
+networks:
+  homelab-net:
+    external: true
